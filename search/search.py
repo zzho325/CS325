@@ -98,11 +98,6 @@ class Node:
         successors = problem.getSuccessors(self.state)
         return [Node(s[0], self, s[1], self.pathCost + s[2]) for s in successors]
 
-    def successor(self, problem, action):
-        for s in problem.getSuccessors(self.state):
-            if action == s[1]:
-                return Node(s[0], self, s[1], self.pathCost + s[2])
-
     def pathOfActions(self):
         """Return list of actions from start to reach current node."""
         node, path_back = self, []
@@ -143,7 +138,6 @@ def graph_search(problem, fringe):
             fringe.push(n)
 
 
-
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first
@@ -158,7 +152,6 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    "*** YOUR CODE HERE ***"
     return graph_search(problem, util.Stack()).pathOfActions()
 
 
@@ -166,7 +159,6 @@ def breadthFirstSearch(problem):
     """
     Search the shallowest nodes in the search tree first.
     """
-    "*** YOUR CODE HERE ***"
     return graph_search(problem, util.Queue()).pathOfActions()
 
 
@@ -174,7 +166,6 @@ def uniformCostSearch(problem):
     """
     Search the node of the least total cost first.
     """
-    "*** YOUR CODE HERE ***"
     return graph_search(problem, util.PriorityQueueWithFunction(Node.getCost)).pathOfActions()
 
 
@@ -187,10 +178,11 @@ def nullHeuristic(state, problem=None):
 
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    "Search the node that has the lowest combined cost and heuristic first."
-    "*** YOUR CODE HERE ***"
+    """
+    Search the node that has the lowest combined cost and heuristic first.
+    """
     return graph_search(problem, util.PriorityQueueWithFunction(
-        lambda n : n.getCost() + heuristic(n.getState(), problem))).pathOfActions()
+        lambda n: n.getCost() + heuristic(n.getState(), problem))).pathOfActions()
 
 
 # Abbreviations
